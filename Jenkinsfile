@@ -9,7 +9,13 @@ pipeline{
         }
         stage('Install Dependencies'){
             steps{
-                echo "RUnning Python Tests"
+                echo "Installing dependencies"
+                sh 'pip3 install -r requirements.txt || echo "No requirements.txt found"'
+            }
+        }
+        stage('Run Tests'){
+            steps{
+                echo "Running Python Tests"
                 sh 'pytest --maxfail=1 --disable-warnings -q || echo "Tests folder not found"'
             }
         }
